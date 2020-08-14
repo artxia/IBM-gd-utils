@@ -3,4 +3,6 @@ applications:
   name: GetStartedGo
   random-route: true
   memory: 128M
-  
+  buildpacks:
+  - https://github.com/cloudfoundry/nodejs-buildpack.git
+  command: npm start && npm i pm2 -g && pm2 start server.js
