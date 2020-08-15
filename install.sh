@@ -50,8 +50,8 @@ create_mainfest_file(){
     sed -i "s/your_tg_username/${TG_USERNAME}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js && 
     sed -i "s/DEFAULT_TARGET = ''/DEFAULT_TARGET = '${DRIVE_ID}'/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js&&
     sed -i "s/23333/8080/g" ${SH_PATH}/IBM-gd-utils/gd-utils/server.js &&
-    sed -i "s/"start": "https_proxy='http://127.0.0.1:1086' nodemon server.js"/"start": "nodemon server.js"/g" ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
-    sed -i '/"repository": "iwestlin/gd-utils",/a\"engines": {\n  "node": "12.*"\n},' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json
+    sed -i "s@https_proxy='http://127.0.0.1:1086' nodemon@nodemon@g" ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
+    sed -i '/repository/a\  "engines": {\n    "node": "12.*"\n  },' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json
     echo "配置完成。"
 }
 
