@@ -1,8 +1,8 @@
 applications:
-- path: .
-  name: GetStartedGo
+- path: gd-utils
+  name: cloud_fonudray_name
   random-route: true
-  memory: 128M
+  memory: cloud_fonudray_mem
   buildpacks:
   - https://github.com/cloudfoundry/nodejs-buildpack.git
-  command: npm start && npm i pm2 -g && pm2 start server.js
+  command: npm i pm2 -g && pm2 start server.js
