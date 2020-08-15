@@ -38,7 +38,7 @@ create_mainfest_file(){
     echo "你的TG账号${TG_USERNAME}"
 
     read -p "请输入转存默认目的地团队盘ID：" DRIVE_ID
-    while [[ "${#DRIVE_ID}" != 19 ]]; do
+    while [[ "${#DRIVE_ID}" != 19 && "${#DRIVE_ID}" != 33 ]]; do
     echo "你的Google team drive ID输入不正确"
     read -p "请输入转存默认目的地ID：" DRIVE_ID
     done
