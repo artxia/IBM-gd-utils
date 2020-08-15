@@ -64,11 +64,13 @@ clone_repo(){
     npm i
     cd sa
     echo "请点击网页右上角的上传功能，上传sa打包的accounts.zip文件，注意命名和压缩格式要相同"
+    read -s -n1 -p "已做好准备请按任意键开始"
     while [ ! -f ${SH_PATH}/accounts.zip ]; do
     echo "上传文件错误，请重新上传"
+    read -p "按回车键重试"
     done
     echo "正在解压。。。"
-    cp -r ${SH_PATH}/accounts.zip /IBM-gd-utils/gd-utils/sa/
+    cp -r ${SH_PATH}/accounts.zip  ${SH_PATH}/IBM-gd-utils/gd-utils/sa/
     unzip -j accounts.zip -y
     sleep 10s
     echo "初始化完成。"
