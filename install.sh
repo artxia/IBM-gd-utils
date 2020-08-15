@@ -71,7 +71,7 @@ clone_repo(){
     done
     echo "正在解压。。。"
     cp -r ${SH_PATH}/accounts.zip  ${SH_PATH}/IBM-gd-utils/gd-utils/sa/
-    unzip -j accounts.zip -y
+    unzip -oj accounts.zip
     sleep 10s
     echo "初始化完成。"
 }
