@@ -29,21 +29,21 @@ create_mainfest_file(){
     echo "应用所在区域：${IBM_APP_REGION}"
 
     read -p "请输入机器人token：" BOT_TOKEN
-while [[ "${#BOT_TOKEN}" != 46 ]]; do
+    while [[ "${#BOT_TOKEN}" != 46 ]]; do
     echo "机器人TOKEN输入不正确，请重新输入"
     read -p """请输入机器人token：" BOT_TOKEN
-done
+    done
 
-read -p "请输入使用机器人的telegram账号ID：" TG_USERNAME
-echo "你的TG账号${TG_USERNAME}"
+    read -p "请输入使用机器人的telegram账号ID：" TG_USERNAME
+    echo "你的TG账号${TG_USERNAME}"
 
-read -p "请输入转存默认目的地团队盘ID：" DRIVE_ID
-while [[ "${#DRIVE_ID}" != 19 ]]; do
+    read -p "请输入转存默认目的地团队盘ID：" DRIVE_ID
+    while [[ "${#DRIVE_ID}" != 19 ]]; do
     echo "你的Google team drive ID输入不正确"
     read -p "请输入转存默认目的地ID：" DRIVE_ID
-done
+    done
 
-cd ~ &&
+    cd ~ &&
     sed -i "s/cloud_fonudray_name/${IBM_APP_NAME}/g" ${SH_PATH}/IBM-gd-utils/manifest.yml &&
     sed -i "s/cloud_fonudray_mem/${IBM_MEM_SIZE}/g" ${SH_PATH}/IBM-gd-utils/manifest.yml && 
     sed -i "s/bot_token/${BOT_TOKEN}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js &&
@@ -58,13 +58,13 @@ cd ~ &&
 clone_repo(){
     echo "进行初始化。。。"
     git clone https://github.com/artxia/IBM-gd-utils
-cd IBM-gd-utils
+    cd IBM-gd-utils
     git submodule update --init --recursive
-cd gd-utils
+    cd gd-utils
     npm i
-cd sa
+    cd sa
     echo "请点击网页右上角的上传功能，上传sa打包的accounts.zip文件，注意命名和压缩格式要相同"
-if test -s ${SH_PATH}/accounts.zip; then
+    if test -s ${SH_PATH}/accounts.zip; then
     echo "正在解压。。。"
     cp -r ${SH_PATH}/accounts.zip /IBM-gd-utils/gd-utils/sa/
     unzip -j accounts.zip -y
