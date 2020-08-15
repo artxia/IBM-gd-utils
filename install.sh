@@ -1,4 +1,18 @@
 #!/bin/bash
+echo
+echo "============== <<部署之前先满足以下条件>> ==============\033[0m"
+echo "1.你的应用名称"
+echo "2.你的应用内存大小"
+echo "3.你的应用所在区域"
+echo "4.telegram机器人token"
+echo "5.telegram账号ID"
+echo "6.默认目的google drive团队盘ID"
+echo "7.获得SA文件，并打包成accounts.zip文件"
+echo "------------------------------------------------"
+read -s -n1 -p "已做好准备请按任意键开始"
+echo
+echo "------------------------------------------------"
+
 SH_PATH=$(cd "$(dirname "$0")";pwd)
 cd ${SH_PATH}
 
@@ -11,33 +25,30 @@ create_mainfest_file(){
     IBM_MEM_SIZE=256
     fi
     echo "内存大小：${IBM_MEM_SIZE}"
-    read -p "请输入你的应用区域：" IBM_APP_REGION
-    echo "应用区域：${IBM_APP_REGION}"
+    read -p "请输入你的应用所在区域：" IBM_APP_REGION
+    echo "应用所在区域：${IBM_APP_REGION}"
 
-    read -p """请输入机器人token：" YOUR_BOT_TOKEN
-while [[ "${#YOUR_BOT_TOKEN}" != 46 ]]; do
+    read -p "请输入机器人token：" BOT_TOKEN
+while [[ "${#BOT_TOKEN}" != 46 ]]; do
     echo "机器人TOKEN输入不正确，请重新输入"
-    read -p """请输入机器人token：" YOUR_BOT_TOKEN
+    read -p """请输入机器人token：" BOT_TOKEN
 done
 
-read -p "请输入使用机器人的telegram账号ID：" YOUR_TELEGRAM_ID
-echo "你的TG账号${YOUR_TELEGRAM_ID}"
+read -p "请输入使用机器人的telegram账号ID：" TG_USERNAME
+echo "你的TG账号${TG_USERNAME}"
 
-read -p "请输入转存默认目的地团队盘ID：" YOUR_GOOGLE_TEAM_DRIVE_ID
-while [[ "${#YOUR_GOOGLE_TEAM_DRIVE_ID}" != 19 ]]; do
+read -p "请输入转存默认目的地团队盘ID：" DRIVE_ID
+while [[ "${#DRIVE_ID}" != 19 ]]; do
     echo "你的Google team drive ID输入不正确"
-    read -p "请输入转存默认目的地ID：" YOUR_GOOGLE_TEAM_DRIVE_ID
+    read -p "请输入转存默认目的地ID：" DRIVE_ID
 done
-
-read -p "请输入你的IBM应用URL：" IBM_APP_URL
-echo "你的IBM应用URL${IBM_APP_URL}"
 
 cd ~ &&
     sed -i "s/cloud_fonudray_name/${IBM_APP_NAME}/g" ${SH_PATH}/IBM-gd-utils/manifest.yml &&
     sed -i "s/cloud_fonudray_mem/${IBM_MEM_SIZE}/g" ${SH_PATH}/IBM-gd-utils/manifest.yml && 
-    sed -i "s/bot_token/${YOUR_BOT_TOKEN}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js &&
-    sed -i "s/your_tg_username/${YOUR_TELEGRAM_ID}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js && 
-    sed -i "s/DEFAULT_TARGET = ''/DEFAULT_TARGET = '${YOUR_GOOGLE_TEAM_DRIVE_ID}'/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js&&
+    sed -i "s/bot_token/${BOT_TOKEN}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js &&
+    sed -i "s/your_tg_username/${TG_USERNAME}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js && 
+    sed -i "s/DEFAULT_TARGET = ''/DEFAULT_TARGET = '${DRIVE_ID}'/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js&&
     sed -i "s/23333/8080/g" ${SH_PATH}/IBM-gd-utils/gd-utils/server.js &&
     sed -i "s/"start": "https_proxy='http://127.0.0.1:1086' nodemon server.js"/"start": "nodemon server.js"/g" ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
     sed -i '/"repository": "iwestlin/gd-utils",/a\"engines": {\n  "node": "12.*"\n},' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json
