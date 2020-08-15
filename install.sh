@@ -64,7 +64,9 @@ clone_repo(){
     npm i
     cd sa
     echo "请点击网页右上角的上传功能，上传sa打包的accounts.zip文件，注意命名和压缩格式要相同"
-    if test -s ${SH_PATH}/accounts.zip; then
+    while [ ! -f ${SH_PATH}/accounts.zip ]; do
+    echo "上传文件错误，请重新上传"
+    done
     echo "正在解压。。。"
     cp -r ${SH_PATH}/accounts.zip /IBM-gd-utils/gd-utils/sa/
     unzip -j accounts.zip -y
