@@ -80,7 +80,6 @@ install(){
     echo "进行安装。。。"
     cd ${SH_PATH}/IBM-gd-utils
     ibmcloud target --cf
-    ibmcloud cf install
     ibmcloud cf push
     echo "安装完成。"
     sleep 3s
