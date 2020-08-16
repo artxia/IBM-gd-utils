@@ -52,7 +52,8 @@ create_mainfest_file(){
     sed -i "s/23333/8080/g" ${SH_PATH}/IBM-gd-utils/gd-utils/server.js &&
     sed -i "s@https_proxy='http://127.0.0.1:1086' nodemon@pm2-runtime start@g" ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
     sed -i '/scripts/a\    "preinstall": "npm install pm2 -g",' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
-    sed -i '/repository/a\  "engines": {\n    "node": "12.*"\n  },' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json
+    sed -i '/repository/a\  "engines": {\n    "node": "12.*"\n  },' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
+    sed -i '/dependencies/a\    "pm2": "^3.2.8",' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json
     echo "配置完成。"
 }
 
