@@ -53,7 +53,9 @@ create_mainfest_file(){
       buildpacks:
         - https://github.com/cloudfoundry/nodejs-buildpack.git
       command: >
-        npm i && npm i pm2 -g && pm2-runtime start server.js
+        npm i
+        npm i pm2 -g
+        pm2-runtime start server.js
 EOF
     sed -i "s/bot_token/${BOT_TOKEN}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js &&
     sed -i "s/your_tg_username/${TG_USERNAME}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js && 
