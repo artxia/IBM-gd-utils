@@ -25,7 +25,7 @@ create_mainfest_file(){
     IBM_MEM_SIZE=256
     fi
     echo "内存大小：${IBM_MEM_SIZE}"
-    read -p "请输入你的应用所在区域(不知道的看应用URL，yourAPPname.us-south.cf.appdomain.cloud，cf前面us-south就是)：" IBM_APP_REGION
+    read -p "请输入你的应用所在区域(不知道的看应用URL，cf前面的us-south就是)：" IBM_APP_REGION
     echo "应用所在区域：${IBM_APP_REGION}"
 
     read -p "请输入机器人token：" BOT_TOKEN
@@ -65,7 +65,7 @@ clone_repo(){
     echo "请点击网页右上角的上传功能，上传sa打包成的accounts.zip文件，注意命名和压缩格式要和示例相同"
     read -s -n1 -p "已做好准备请按任意键开始"
     while [ ! -f ${SH_PATH}/accounts.zip ]; do
-    echo "上传文件错误，请重新上传"
+    echo "。。。。。。上传文件错误，请重新上传"
     read -p "按回车键重试"
     done
     echo "正在解压。。。"
