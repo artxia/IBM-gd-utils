@@ -44,7 +44,7 @@ create_mainfest_file(){
     done
 
     cd ~ &&
-    cat >  ${SH_PATH}/IBMYes/v2ray-cloudfoundry/manifest.yml  << EOF
+    cat >  ${SH_PATH}/IBM-gd-utils/manifest.yml  << EOF
     applications:
     - path: gd-utils
       name: ${IBM_APP_NAME}
@@ -88,10 +88,10 @@ clone_repo(){
 install(){
     echo "进行安装。。。"
 # 解除sudu权限限制
-#    mkdir ~/.npm-global
-#    npm config set prefix '~/.npm-global'
-#    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
-#    source ~/.profile
+    mkdir ~/.npm-global
+    npm config set prefix '~/.npm-global'
+    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
+    source ~/.profile
 # end
     cd IBM-gd-utils/gd-utils
     npm install --unsafe-perm=true --allow-root
