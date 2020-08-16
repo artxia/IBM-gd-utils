@@ -25,7 +25,7 @@ create_mainfest_file(){
     IBM_MEM_SIZE=256
     fi
     echo "内存大小：${IBM_MEM_SIZE}"
-    read -p "请输入你的应用所在区域：" IBM_APP_REGION
+    read -p "请输入你的应用所在区域(不知道的看应用URL，yourAPPname.us-south.cf.appdomain.cloud，cf前面这段就是)：" IBM_APP_REGION
     echo "应用所在区域：${IBM_APP_REGION}"
 
     read -p "请输入机器人token：" BOT_TOKEN
@@ -50,7 +50,8 @@ create_mainfest_file(){
     sed -i "s/your_tg_username/${TG_USERNAME}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js && 
     sed -i "s/DEFAULT_TARGET = ''/DEFAULT_TARGET = '${DRIVE_ID}'/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js&&
     sed -i "s/23333/8080/g" ${SH_PATH}/IBM-gd-utils/gd-utils/server.js &&
-    sed -i "s@https_proxy='http://127.0.0.1:1086' nodemon@nodemon@g" ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
+    sed -i "s@https_proxy='http://127.0.0.1:1086' nodemon@pm2-runtime start@g" ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
+    sed -i '/scripts/a\    "preinstall": "npm install pm2 -g",' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
     sed -i '/repository/a\  "engines": {\n    "node": "12.*"\n  },' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json
     echo "配置完成。"
 }
@@ -60,10 +61,8 @@ clone_repo(){
     git clone https://github.com/artxia/IBM-gd-utils
     cd IBM-gd-utils
     git submodule update --init --recursive
-    cd gd-utils
-    npm i
-    cd sa
-    echo "请点击网页右上角的上传功能，上传sa打包的accounts.zip文件，注意命名和压缩格式要相同"
+    cd gd-utils/sa
+    echo "请点击网页右上角的上传功能，上传sa打包成的accounts.zip文件，注意命名和压缩格式要和示例相同"
     read -s -n1 -p "已做好准备请按任意键开始"
     while [ ! -f ${SH_PATH}/accounts.zip ]; do
     echo "上传文件错误，请重新上传"
@@ -78,7 +77,13 @@ clone_repo(){
 
 install(){
     echo "进行安装。。。"
-    cd ${SH_PATH}/IBM-gd-utils
+    mkdir ${SH_PATH}/.npm-global
+    npm config set prefix '${SH_PATH}/.npm-global'
+    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ${SH_PATH}/.profile
+    source ${SH_PATH}/.profile
+    cd IBM-gd-utils/gd-utils
+    npm i
+    cd ..
     ibmcloud target --cf
     ibmcloud cf push
     echo "安装完成。"
