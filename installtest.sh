@@ -44,27 +44,16 @@ create_mainfest_file(){
     done
 
     cd ~ &&
-    cat >  ${SH_PATH}/IBM-gd-utils/manifest.yml  << EOF
-    applications:
-    - path: gd-utils
-      name: ${IBM_APP_NAME}
-      random-route: true
-      memory: ${IBM_MEM_SIZE}M
-      buildpacks:
-        - https://github.com/cloudfoundry/nodejs-buildpack.git
-      command: >
-        npm i
-        npm i pm2 -g
-        pm2-runtime start server.js
-EOF
+    sed -i "s/cloud_fonudray_name/${IBM_APP_NAME}/g" ${SH_PATH}/IBM-gd-utils/manifest.yml &&
+    sed -i "s/cloud_fonudray_mem/${IBM_MEM_SIZE}/g" ${SH_PATH}/IBM-gd-utils/manifest.yml && 
     sed -i "s/bot_token/${BOT_TOKEN}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js &&
     sed -i "s/your_tg_username/${TG_USERNAME}/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js && 
     sed -i "s/DEFAULT_TARGET = ''/DEFAULT_TARGET = '${DRIVE_ID}'/g" ${SH_PATH}/IBM-gd-utils/gd-utils/config.js&&
     sed -i "s/23333/8080/g" ${SH_PATH}/IBM-gd-utils/gd-utils/server.js &&
-    sed -i "s@https_proxy='http://127.0.0.1:1086' nodemon@nodemon@g" ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
-#    sed -i '/scripts/a\    "preinstall": "npm install pm2 -g",' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
+    sed -i "s@https_proxy='http://127.0.0.1:1086' nodemon@pm2 start@g" ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
+    sed -i '/scripts/a\    "preinstall": "npm install pm2 -g",' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
     sed -i '/repository/a\  "engines": {\n    "node": "12.*"\n  },' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json&&
-#    sed -i '/dependencies/a\    "pm2": "^3.2.8",' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json
+    sed -i '/dependencies/a\    "pm2": "^3.2.8",' ${SH_PATH}/IBM-gd-utils/gd-utils/package.json
     echo "配置完成。"
 }
 
@@ -94,16 +83,15 @@ install(){
     npm config set prefix '~/.npm-global'
     sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
     source ~/.profile
-# end
+#
     cd IBM-gd-utils/gd-utils
-    npm install --unsafe-perm=true --allow-root
-    npm i pm2 -g
+    npm i
     cd ..
     ibmcloud target --cf
     ibmcloud cf push
     echo "安装完成。"
     sleep 3s
-	echo "检查是否部署成功。。。"
+    echo "检查是否部署成功。。。"
     echo ${IBM_APP_NAME}.${IBM_APP_REGION}.cf.appdomain.cloud/api/gdurl/count?fid=124pjM5LggSuwI1n40bcD5tQ13wS0M6wg
     curl ${IBM_APP_NAME}.${IBM_APP_REGION}.cf.appdomain.cloud/api/gdurl/count?fid=124pjM5LggSuwI1n40bcD5tQ13wS0M6wg
     echo
