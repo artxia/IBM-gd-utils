@@ -1,6 +1,6 @@
 #!/bin/bash
 echo
-echo "============== <<部署之前先满足以下条件>> ==============\033[0m"
+echo "============== <<部署之前先满足以下条件>> =============="
 echo "1.你的应用名称"
 echo "2.你的应用内存大小"
 echo "3.你的应用所在区域"
@@ -25,7 +25,7 @@ create_mainfest_file(){
     IBM_MEM_SIZE=256
     fi
     echo "内存大小：${IBM_MEM_SIZE}"
-    read -p "请输入你的应用所在区域(不知道的看应用URL，yourAPPname.us-south.cf.appdomain.cloud，cf前面这段就是)：" IBM_APP_REGION
+    read -p "请输入你的应用所在区域(不知道的看应用URL，yourAPPname.us-south.cf.appdomain.cloud，cf前面us-south就是)：" IBM_APP_REGION
     echo "应用所在区域：${IBM_APP_REGION}"
 
     read -p "请输入机器人token：" BOT_TOKEN
@@ -77,10 +77,12 @@ clone_repo(){
 
 install(){
     echo "进行安装。。。"
-    mkdir ${SH_PATH}/.npm-global
-    npm config set prefix '${SH_PATH}/.npm-global'
-    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ${SH_PATH}/.profile
-    source ${SH_PATH}/.profile
+# 解除sudu权限限制
+    mkdir ~/.npm-global
+    npm config set prefix '~/.npm-global'
+    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
+    source ~/.profile
+#
     cd IBM-gd-utils/gd-utils
     npm i
     cd ..
