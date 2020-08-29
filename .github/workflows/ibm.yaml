@@ -5,10 +5,10 @@ on:
 #    branches: [ master ]
 #  pull_request:
 #    branches: [ master ]
-  schedule:
-    - cron: 0 0 1 1 *
-#  watch:
-#    types: [started]
+#  schedule:
+#    - cron: 0 0 1 1 *
+  workflow_dispatch:
+    inputs:
 
 jobs:
   ibm-cloud-restart:
