@@ -36,7 +36,7 @@ DRIVE_ID           GD默认保存目录ID
 SA_DLURL           SA打包文件accounts.zip下载url
  ```
 
-第四步：在你自己的GitHub项目里面，点Actions然后点左侧IBM Cloud Auto Install切换，然后点 Run workflow 开始全自动安装
+第四步：在你自己的GitHub项目里面，点Actions然后点左侧IBM Cloud Auto Install切换，然后点 Run workflow 开始全自动安装(看不到Auto Install的话，点开yml文件随便加一空行保存)
 
 结束
 
