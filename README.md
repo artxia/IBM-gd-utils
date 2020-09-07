@@ -1,3 +1,49 @@
 # IBM-gd-utils
 
-IBM Cloud Fonudray + gd-utils + cloudflare + Github Actions
+IBM Cloud Fonudray + gd-utils + Github Actions
+
+效果：用GitHub Actions全自动安装gd-utils机器人到IBM Cloud Fonudray容器内，并且每周五12点定时重启IBM CF
+
+前提须知：
+1、申请IBM Cloud Fonudray账号，记录下账号和密码。（申请完成后登录就不用管他了，不需要手动建立容器）
+2、申请tg机器人，记录下token和自己的ID
+3、获得service account文件，并打包成accounts.zip上传到能下载的地方，然后记录下载url（可以直接上传到自己的GoogleDrive）
+4、在自己的GD团队盘里面设置一个默认目录，记录下目录ID
+
+##全自动安装
+
+第一步：注册IBM Cloud Fonudray记住账号密码 cloud.ibm.com
+
+第二步：打开GitHub注册，然后Fork本项目（顺便点个Star）
+
+第三步：在你自己的GitHub项目里面点Settings（设置）然后点Secrets（隐私）新建如下内容
+
+ ```
+IBM_MAIL           IBM Cloud的登录邮箱
+IBM_PWD            IBM Cloud的登录密码
+IBM_APP_NAME       CF App的名称（自己取一个）
+TG_TOKEN           Telegram机器人token
+TG_USERNAME        Telegram账号ID,多个用,隔开
+DRIVE_ID           GD默认保存目录ID
+SA_DLURL           SA打包文件accounts.zip下载url
+ ```
+
+第四步：在你自己的GitHub项目里面，点Actions然后点左侧IBM Cloud Auto Install切换，然后点 Run workflow 开始全自动安装
+
+结束
+
+打开你自己建的TGbot，输入/help
+
+
+
+##手动安装
+
+第一步：注册IBM Cloud Fonudray并自行新建容器
+
+第二步：打开IBM Cloud Shell输入以下代码
+
+ ```
+wget --no-check-certificate -O install.sh https://raw.githubusercontent.com/artxia/IBM-gd-utils/master/install.sh && chmod +x install.sh  && ./install.sh
+ ```
+
+结束
