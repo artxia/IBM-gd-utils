@@ -21,7 +21,7 @@ jobs:
         git submodule update --init --recursive
         cd gd-utils/sa
         wget -O accounts.zip ${{ secrets.SA_DLURL }}
-        unzip -j accounts.zip
+        unzip -jq  accounts.zip
 
     - name: Settings Configuration File
       run: |
