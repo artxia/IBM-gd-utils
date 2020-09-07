@@ -46,7 +46,7 @@ SA_DLURL           SA打包文件accounts.zip下载url
 
 第一步：注册IBM Cloud Fonudray并自行新建容器
 
-第二步：打开IBM Cloud Shell输入以下代码
+第二步：打开IBM Cloud Shell输入以下代码 (shell在网页右上角)
 
  ```
 wget --no-check-certificate -O install.sh https://raw.githubusercontent.com/artxia/IBM-gd-utils/master/install.sh && chmod +x install.sh  && ./install.sh
