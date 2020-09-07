@@ -23,7 +23,7 @@ jobs:
         sudo mv cf /usr/local/bin
       
     - name: Login Cloud Foundry
-      run: cf l -a https://api.${{ secrets.IBM_RGN }}.cf.cloud.ibm.com login -u ${{ secrets.IBM_MAIL }} -p ${{ secrets.IBM_PWD }}
+      run: cf l -a https://api.us-south.cf.cloud.ibm.com login -u ${{ secrets.IBM_MAIL }} -p ${{ secrets.IBM_PWD }}
       
     - name: Restart Cloud Foundry APP
       run: cf restart ${{ secrets.IBM_APP_NAME }}
