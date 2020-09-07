@@ -2,9 +2,9 @@
 
 IBM Cloud Fonudray + gd-utils + Github Actions
 
-**效果：用GitHub Actions全自动安装gd-utils机器人到IBM Cloud Fonudray容器内，并且每周五12点定时重启IBM CF**
+> **效果：用GitHub Actions全自动安装gd-utils机器人到IBM Cloud Fonudray容器内，并且每周五12点定时重启IBM CF**
 
-> **重要提示：因为IBM CF每次重启后容器内应用会恢复原始状态，故重启期间进行的设置和转存记录都会被清除！有这方面需求的谨慎选择是否安装。**
+> **重要提示：因为IBM CF每次重启后容器内应用会恢复原始状态，故重启期间进行的设置和转存记录都会被清除！有这方面需求的谨慎选择是否安装。** （也可能是我的设置问题，有解请告诉我）
 
 >
 >前提须知：
