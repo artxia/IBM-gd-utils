@@ -94,6 +94,7 @@ install(){
 	echo "检查是否部署成功。。。"
     echo ${IBM_APP_NAME}.${IBM_APP_REGION}.cf.appdomain.cloud/api/gdurl/count?fid=124pjM5LggSuwI1n40bcD5tQ13wS0M6wg
     curl ${IBM_APP_NAME}.${IBM_APP_REGION}.cf.appdomain.cloud/api/gdurl/count?fid=124pjM5LggSuwI1n40bcD5tQ13wS0M6wg
+    curl -F "url=https://${IBM_APP_NAME}.${IBM_APP_REGION}.cf.appdomain.cloud/api/gdurl/tgbot" 'https://api.telegram.org/bot${BOT_TOKEN}/setWebhook'
     echo
 }
 
