@@ -8,8 +8,11 @@ IBM Cloud Fonudray + gd-utils + Github Actions
 >前提须知：
 >
 >1、申请IBM Cloud Fonudray账号，记录下账号和密码。（申请完成后登录就不用管他了，不需要手动建立容器）
+>
 >2、申请tg机器人，记录下token和自己的ID
+>
 >3、获得service account文件，并打包成accounts.zip上传到能下载的地方，然后记录下载url（可以直接上传到自己的GoogleDrive）
+>
 >4、在自己的GD团队盘里面设置一个默认目录，记录下目录ID
 >
 
@@ -35,7 +38,7 @@ SA_DLURL           SA打包文件accounts.zip下载url
 
 结束
 
-打开你自己建的TGbot，输入/help
+**打开你自己建的TGbot，输入/help**
 
 
 
