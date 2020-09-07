@@ -5,7 +5,7 @@ on:
     inputs:
 
 jobs:
-  ibm-cloud-restart:
+  ibm-cloud-install:
     runs-on: ubuntu-latest
 
     steps:
