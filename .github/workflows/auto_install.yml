@@ -15,12 +15,13 @@ jobs:
         sudo apt-get -y update
         sudo apt-get -y install wget
         sudo apt-get -y install curl
+        sudo apt-get -y install zip unzip
 
     - name: Download Accounts File
       run: |
         git submodule update --init --recursive
         cd gd-utils/sa
-        wget -O accounts.zip ${{ secrets.SA_DLURL }}
+        wget -Oq accounts.zip ${{ secrets.SA_DLURL }}
         unzip -jq  accounts.zip
 
     - name: Settings Configuration File
