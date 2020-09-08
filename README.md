@@ -31,7 +31,7 @@ IBM_MAIL           IBM Cloud的登录邮箱
 IBM_PWD            IBM Cloud的登录密码
 IBM_APP_NAME       CF App的名称（自己取一个）
 TG_TOKEN           Telegram机器人token
-TG_USERNAME        Telegram账号ID,多个用,隔开
+TG_USERNAME        你的Telegram username(t.me/username)。多个用`username', '其他人的username`这个格式，注意起始处没有引号
 DRIVE_ID           GD默认保存目录ID
 SA_DLURL           SA打包文件accounts.zip下载url
  ```
