@@ -6,3 +6,5 @@ applications:
   buildpacks:
   - https://github.com/cloudfoundry/nodejs-buildpack.git
   command: pm2-runtime start server.js
+
+
