@@ -1,0 +1,63 @@
+name: IBM Cloud Auto Install
+
+on:
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  ibm-cloud-install:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install build dependencies
+      run: |
+        sudo apt-get -y update
+        sudo apt-get -y install wget
+        sudo apt-get -y install curl
+        sudo apt-get -y install zip unzip
+
+    - name: Download Accounts File
+      run: |
+        git submodule update --init --recursive
+        cd gd-utils/sa
+        curl -L "${{ secrets.SA_DLURL }}" -o accounts.zip
+        unzip -jq -o accounts.zip
+
+    - name: Settings Configuration File
+      run: |
+        cd
+        sed -i "s/cloud_fonudray_name/${{ secrets.IBM_APP_NAME }}/g" ${GITHUB_WORKSPACE}/manifest.yml
+        sed -i "s/cloud_fonudray_mem/256/g" ${GITHUB_WORKSPACE}/manifest.yml
+        sed -i "s/bot_token/${{ secrets.TG_TOKEN }}/g" ${GITHUB_WORKSPACE}/gd-utils/config.js
+        sed -i "s/your_tg_username/${{ secrets.TG_USERNAME }}/g" ${GITHUB_WORKSPACE}/gd-utils/config.js
+        sed -i "s/DEFAULT_TARGET = ''/DEFAULT_TARGET = '${{ secrets.DRIVE_ID }}'/g" ${GITHUB_WORKSPACE}/gd-utils/config.js
+        sed -i "s/23333/8080/g" ${GITHUB_WORKSPACE}/gd-utils/server.js
+        sed -i "s@https_proxy='http://127.0.0.1:1086' nodemon@pm2-runtime start@g" ${GITHUB_WORKSPACE}/gd-utils/package.json
+        sed -i '/scripts/a\    "preinstall": "npm install pm2 -g",' ${GITHUB_WORKSPACE}/gd-utils/package.json
+        sed -i '/repository/a\  "engines": {\n    "node": "12.*"\n  },' ${GITHUB_WORKSPACE}/gd-utils/package.json
+        sed -i '/dependencies/a\    "pm2": "^3.2.8",' ${GITHUB_WORKSPACE}/gd-utils/package.json
+
+    - name: Install GD-utils Dependencies
+      run: |
+        mkdir ~/.npm-global
+        npm config set prefix '~/.npm-global'
+        sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
+        source ~/.profile
+        cd ${GITHUB_WORKSPACE}/gd-utils
+        npm i
+        cd ..
+
+    - name: Install Cloud Foundry CLI
+      run: |
+        curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github&version=v6" | tar -zx
+        sudo mv cf /usr/local/bin
+      
+    - name: Login Cloud Foundry
+      run: cf l -a https://api.us-south.cf.cloud.ibm.com login -u ${{ secrets.IBM_MAIL }} -p ${{ secrets.IBM_PWD }}
+      
+    - name: Push Cloud Foundry APP
+      run: |
+        cf push ${{ secrets.IBM_APP_NAME }}
+        curl ${{ secrets.IBM_APP_NAME }}.us-south.cf.appdomain.cloud/api/gdurl/count?fid=124pjM5LggSuwI1n40bcD5tQ13wS0M6wg
+        curl -F "url=https://${{ secrets.IBM_APP_NAME }}.us-south.cf.appdomain.cloud/api/gdurl/tgbot" 'https://api.telegram.org/bot${{ secrets.TG_TOKEN }}/setWebhook'
