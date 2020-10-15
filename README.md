@@ -26,15 +26,16 @@ IBM Cloud Fonudray + gd-utils + Github Actions
 
 第三步：在你自己的GitHub项目里面点Settings（设置）然后点Secrets（隐私）新建如下内容
 
- ```
-IBM_MAIL           IBM Cloud的登录邮箱
-IBM_PWD            IBM Cloud的登录密码
-IBM_APP_NAME       CF App的名称（自己取一个）
-TG_TOKEN           Telegram机器人token
-TG_USERNAME        你的Telegram username
-DRIVE_ID           GD默认保存目录ID
-SA_DLURL           SA打包文件accounts.zip下载url
- ```
+Key | Value | Type | Required
+-- | -- | -- | --
+IBM_MAIL | IBM Cloud的登录邮箱 | Secrets | Yes
+IBM_PWD | IBM Cloud的登录密码 | Secrets | Yes
+IBM_APP_NAME | CF App的名称（自己取一个） | Secrets | Yes
+TG_TOKEN | Telegram机器人token | Secrets | Yes
+TG_USERNAME | 你的Telegram username | Secrets | Yes
+DRIVE_ID | GD默认保存目录ID | Secrets | Yes
+SA_DLURL | SA打包文件accounts.zip下载url | Secrets | Yes
+
 
 第四步：在你自己的GitHub项目里面，点Actions然后点左侧IBM Cloud Auto Install切换，然后点 Run workflow 开始全自动安装(看不到Auto Install的话，点开yml文件随便加一空行保存)
 
