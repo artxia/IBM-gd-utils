@@ -63,7 +63,8 @@ wget --no-check-certificate -O install.sh https://raw.githubusercontent.com/artx
 
 
 
-# English Version by [@ssnjrthegr8](https://github.com/ssnjrthegr8)
+# English Version
+### by [@ssnjrthegr8](https://github.com/ssnjrthegr8)
 
 <details>
 <summary>Stuff</summary>
