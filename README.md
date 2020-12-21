@@ -2,7 +2,7 @@
 
 IBM Cloud Fonudray + gd-utils + Github Actions
 
-### [English Version](#English-Version) by [@ssnjrthegr8](https://github.com/ssnjrthegr8)
+### [English Version](#English-Version)
 
 ### 原项目 [gd-utils](https://github.com/iwestlin/gd-utils)
 
@@ -63,7 +63,7 @@ wget --no-check-certificate -O install.sh https://raw.githubusercontent.com/artx
 
 
 
-# English Version
+# English Version by [@ssnjrthegr8](https://github.com/ssnjrthegr8)
 
 <details>
 <summary>Stuff</summary>
