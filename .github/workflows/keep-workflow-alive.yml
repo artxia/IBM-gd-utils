@@ -1,0 +1,33 @@
+name: 'Keep Workflow Alive'
+
+on:
+  workflow_dispatch:
+    inputs:
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  keep_alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout codes'
+        uses: actions/checkout@v2
+      
+      - name: 'Create UUID'
+        run: echo $(cat /proc/sys/kernel/random/uuid) > UUID
+      
+      - name: 'Commit Files'
+        id: commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff --quiet && git diff --staged --quiet || git commit -am 'Keep Workflow Alive'
+          echo ::set-output name=status::success
+           
+      - name: 'GitHub Push'
+        if: steps.commit.output.status != 'success'
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
