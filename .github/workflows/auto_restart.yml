@@ -25,8 +25,11 @@ jobs:
     - name: Login Cloud Foundry
       run: cf l -a https://api.us-south.cf.cloud.ibm.com login -u ${{ secrets.IBM_MAIL }} -p ${{ secrets.IBM_PWD }}
       
-    - name: Restart Cloud Foundry APP
-      run: cf restart ${{ secrets.IBM_APP_NAME }}
+    #- name: Restart Cloud Foundry APP
+      #run: cf restart ${{ secrets.IBM_APP_NAME }}
+    - name: ssh
+      run: cf ssh "${{ secrets.IBM_APP_NAME }}"
+           -c ls;ps -x;echo "ping -c 20 www.youtube.com >> ping.log";free;exit  
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main
